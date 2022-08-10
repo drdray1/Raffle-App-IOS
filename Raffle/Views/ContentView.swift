@@ -29,16 +29,17 @@ struct ContentView: View {
                         .padding(.horizontal)
                         if viewModel.model.raffleParticipants.count > 1 {
                             Divider()
+                                .padding(.horizontal, 20)
                         }
                     }
                 }
                 
+                Spacer()
+                
                 Divider()
                 
                 toolbar
-                .padding()
-                
-                Spacer()
+                    .padding()
             }
             .navigationTitle("Raffle")
         }
@@ -86,10 +87,10 @@ struct ContentView: View {
                 
                 Button {
                     withAnimation() {
-                        chooseWinner()
+                        addRaffleEntry()
                     }
                 } label: {
-                    Image(systemName: "paperplane")
+                    Image(systemName: "plus")
                         .resizable()
                         .frame(maxWidth: 40, maxHeight: 40)
                 }
@@ -98,10 +99,10 @@ struct ContentView: View {
                 
                 Button {
                     withAnimation() {
-                        addRaffleEntry()
+                        chooseWinner()
                     }
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "paperplane")
                         .resizable()
                         .frame(maxWidth: 40, maxHeight: 40)
                 }
@@ -121,8 +122,10 @@ struct ContentView: View {
     }
     
     func addRaffleEntry() {
-        viewModel.model.raffleParticipants.append(newRaffleParticipant)
-        newRaffleParticipant = ""
+        if newRaffleParticipant.count > 0 {
+            viewModel.model.raffleParticipants.append(newRaffleParticipant)
+            newRaffleParticipant = ""
+        }
     }
 }
 
